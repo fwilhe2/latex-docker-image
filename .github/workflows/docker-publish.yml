@@ -30,6 +30,9 @@ jobs:
       - name: Build image
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
+      - name: Show image size
+        run: docker images | grep $IMAGE_NAME
+
       - name: Log into registry
         run: echo "${{ secrets.DH_PW }}" | docker login -u fwilhe --password-stdin
 
