@@ -2,24 +2,14 @@ name: Docker
 
 on:
   push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - master
-
-    # Publish `v1.2.3` tags as releases.
-    tags:
-      - v*
+  workflow_dispatch:
   schedule:
     - cron:  '0 6 * * *'
-  # Run tests for any PRs.
-  pull_request:
 
 env:
   IMAGE_NAME: fwilhe/latex
 
 jobs:
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
   push:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -60,8 +50,8 @@ jobs:
 
       - name: install dive
         run: |
-          wget -q https://github.com/wagoodman/dive/releases/download/v0.9.2/dive_0.9.2_linux_amd64.deb
-          sudo apt install -yqq ./dive_0.9.2_linux_amd64.deb
+          wget -q https://github.com/wagoodman/dive/releases/download/v0.10.0/dive_0.10.0_linux_amd64.deb
+          sudo apt install -yqq ./dive_0.10.0_linux_amd64.deb
       - name: Dive image
         run: |
           CI=true dive fwilhe/latex
